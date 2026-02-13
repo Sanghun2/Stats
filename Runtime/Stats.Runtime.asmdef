@@ -1,0 +1,16 @@
+{
+    "name": "Stats.Runtime",
+    "rootNamespace": "",
+    "references": [
+        "GUID:096859e8a22aeba408f14d3415251461"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
