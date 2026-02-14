@@ -15,6 +15,12 @@ public class StatContainer
     }
 
 
+    public void RegisterStat(string id, Stat stat) {
+        if (!statDict.TryAdd(id, stat)) {
+            Debug.LogError($"<color=red>{id}는 이미 존재하는 ID여서 stat 추가 실패</color>");
+        }
+    }
+
     public Value? GetStatValue(string statID) {
         if (TryGetStat(statID, out Stat stat)) {
             return stat.Value;
