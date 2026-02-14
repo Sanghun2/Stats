@@ -25,7 +25,8 @@ namespace BilliotGames
             this.maxValue = maxValue;            
         }
 
-        public BoundedStat(float maxValue){
+        public BoundedStat(float maxValue) {
+            this.value = maxValue;
             this.maxValue = maxValue;
         }
 
