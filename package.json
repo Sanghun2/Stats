@@ -1,12 +1,15 @@
 ﻿{
   "name": "com.billiotgames.stats",
-  "version": "1.1.10",
+  "version": "1.1.11",
   "displayName": "Stats",
   "description": "Stat System입니다.",
   "unity": "6000.2",
   "author": {
     "name": "Billiot Games",
     "url": "https://github.com/Sanghun2/Stats"
+  },
+  "dependencies": {
+    "com.billiotgames.valuecontainer": "https://github.com/Sanghun2/Value-Container.git"
   },
   "keywords": [
     "Stat",
