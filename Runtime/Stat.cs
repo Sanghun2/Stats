@@ -1,24 +1,24 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
-namespace BilliotGames
+[Serializable]
+public class Stat
 {
-    public class Stat : ValueContainer
-    {
-        public string ID => id;
+    [SerializeField] protected string id;
+    [SerializeField] protected float value;
 
-        [SerializeField] string id;
+    public event Action<float, float> OnValueChanged;
 
-        public Stat(string id) {
-            this.id = id;
-        }
+    public Stat (string id) {
+        this.id = id;
+    }
 
-        public Stat(string id, float maxValue) {
-            this.id = id;
-            this.maxValue = maxValue;            
-        }
+    public Stat() {
 
-        public Stat(float maxValue) {
-            this.maxValue = maxValue;
-        }
+    }
+
+    public virtual void ChangeValue(float delataValue) {
+        value += delataValue;
+        OnValueChanged?.Invoke(value, delataValue);
     }
 }
