@@ -16,5 +16,9 @@ namespace BilliotGames
             this.id = id;
             this.maxValue = maxValue;            
         }
+
+        public Stat(float maxValue) {
+            this.maxValue = maxValue;
+        }
     }
 }
