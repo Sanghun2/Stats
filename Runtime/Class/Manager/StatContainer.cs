@@ -14,20 +14,6 @@ public class StatContainer
         _isInit = true;
     }
 
-    public void RegisterEvent(string statID, Action<Value> @event) {
-        if (TryGetStat(statID, out Stat stat)) {
-            stat.OnValueChanged -= @event;
-            stat.OnValueChanged += @event;
-        }
-        else {
-            Debug.LogError($"{statID}에 해당하는 Stat이 없음");
-        }
-    }
-    public void UnregisterEvet(string statID, Action<Value> @event) {
-        if (TryGetStat(statID, out Stat stat)) {
-            stat.OnValueChanged -= @event;
-        }
-    }
 
     public Value? GetStatValue(string statID) {
         if (TryGetStat(statID, out Stat stat)) {
@@ -42,6 +28,22 @@ public class StatContainer
             stat.ChangeValue(deltaValue);
         }
     }
+
+    public void RegisterEvent(string statID, Action<Value> @event) {
+        if (TryGetStat(statID, out Stat stat)) {
+            stat.OnValueChanged -= @event;
+            stat.OnValueChanged += @event;
+        }
+        else {
+            Debug.LogError($"{statID}에 해당하는 Stat이 없음");
+        }
+    }
+    public void UnregisterEvent(string statID, Action<Value> @event) {
+        if (TryGetStat(statID, out Stat stat)) {
+            stat.OnValueChanged -= @event;
+        }
+    }
+
 
     private bool TryGetStat(string statID, out Stat stat) {
         return statDict.TryGetValue(statID, out stat);
