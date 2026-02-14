@@ -21,6 +21,7 @@ namespace BilliotGames
         }
 
         public BoundedStat(string id, float maxValue) : base(id) {
+            this.value = maxValue;
             this.maxValue = maxValue;            
         }
 
