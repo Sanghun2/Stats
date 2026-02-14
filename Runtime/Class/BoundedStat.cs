@@ -28,9 +28,9 @@ namespace BilliotGames
             this.maxValue = maxValue;
         }
 
-        public override void ChangeValue(float delataValue) {
+        public override void ChangeValue(float deltaValue) {
             float prevValue = value;
-            value += delataValue;
+            value += deltaValue;
             float resultValue = Mathf.Clamp(value, minValue, maxValue);
             float appliedDelta = resultValue - prevValue;
             value = resultValue;
