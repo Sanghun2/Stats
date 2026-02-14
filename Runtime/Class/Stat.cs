@@ -6,6 +6,8 @@ namespace BilliotGames
     [Serializable]
     public class Stat
     {
+        public virtual Value Value => new Value(value, deltaValue:0);
+
         [SerializeField] protected string id;
         [SerializeField] protected float value;
 

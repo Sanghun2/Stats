@@ -8,13 +8,14 @@ namespace BilliotGames
         public string ID => id;
 
         public float CurrentValue => value;
-        public float MinValue => minValue;
-        public float MaxValue => maxValue;
+        public float MinValue => _minValue;
+        public float MaxValue => _maxValue;
+        public override Value Value => new Value(CurrentValue, deltaValue:0, MinValue, MaxValue);
 
         public override event Action<Value> OnValueChanged;
 
-        [SerializeField] protected float maxValue;
-        [SerializeField] protected float minValue;
+        [SerializeField] protected float _maxValue;
+        [SerializeField] protected float _minValue;
 
         public BoundedStat(string id) : base(id) {
             this.id = id;
@@ -22,21 +23,21 @@ namespace BilliotGames
 
         public BoundedStat(string id, float maxValue) : base(id) {
             this.value = maxValue;
-            this.maxValue = maxValue;            
+            this._maxValue = maxValue;            
         }
 
         public BoundedStat(float maxValue) {
             this.value = maxValue;
-            this.maxValue = maxValue;
+            this._maxValue = maxValue;
         }
 
         public override void ChangeValue(float deltaValue) {
             float prevValue = value;
             value += deltaValue;
-            float resultValue = Mathf.Clamp(value, minValue, maxValue);
+            float resultValue = Mathf.Clamp(value, _minValue, _maxValue);
             float appliedDelta = resultValue - prevValue;
             value = resultValue;
-            OnValueChanged?.Invoke(new Value(value, appliedDelta, minValue, maxValue));
+            OnValueChanged?.Invoke(new Value(value, appliedDelta, _minValue, _maxValue));
         }
     }
 }
