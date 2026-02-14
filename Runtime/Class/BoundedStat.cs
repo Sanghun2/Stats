@@ -11,7 +11,7 @@ namespace BilliotGames
         public float MinValue => minValue;
         public float MaxValue => maxValue;
 
-        public new event Action<Value> OnValueChanged;
+        public override event Action<Value> OnValueChanged;
 
         [SerializeField] protected float maxValue;
         [SerializeField] protected float minValue;

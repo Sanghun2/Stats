@@ -9,7 +9,7 @@ namespace BilliotGames
         [SerializeField] protected string id;
         [SerializeField] protected float value;
 
-        public event Action<Value> OnValueChanged;
+        public virtual event Action<Value> OnValueChanged;
 
         public Stat(string id) {
             this.id = id;
