@@ -11,7 +11,7 @@ namespace BilliotGames
         public float MinValue => minValue;
         public float MaxValue => maxValue;
 
-        public new event Action<float, float, float, float> OnValueChanged;
+        public new event Action<Value> OnValueChanged;
 
         [SerializeField] protected float maxValue;
         [SerializeField] protected float minValue;
@@ -34,7 +34,7 @@ namespace BilliotGames
             float resultValue = Mathf.Clamp(value, minValue, maxValue);
             float appliedDelta = resultValue - prevValue;
             value = resultValue;
-            OnValueChanged?.Invoke(value, appliedDelta, minValue, maxValue);
+            OnValueChanged?.Invoke(new Value(value, appliedDelta, minValue, maxValue));
         }
     }
 }
