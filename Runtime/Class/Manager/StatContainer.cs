@@ -21,7 +21,7 @@ public class StatContainer
         }
     }
 
-    public Value? GetStatValue(string statID) {
+    public Value<float>? GetStatValue(string statID) {
         if (TryGetStat(statID, out Stat stat)) {
             return stat.Value;
         }
@@ -35,7 +35,7 @@ public class StatContainer
         }
     }
 
-    public void RegisterEvent(string statID, Action<Value> @event) {
+    public void RegisterEvent(string statID, Action<Value<float>> @event) {
         if (TryGetStat(statID, out Stat stat)) {
             stat.OnValueChanged -= @event;
             stat.OnValueChanged += @event;
@@ -44,7 +44,7 @@ public class StatContainer
             Debug.LogError($"{statID}에 해당하는 Stat이 없음");
         }
     }
-    public void UnregisterEvent(string statID, Action<Value> @event) {
+    public void UnregisterEvent(string statID, Action<Value<float>> @event) {
         if (TryGetStat(statID, out Stat stat)) {
             stat.OnValueChanged -= @event;
         }

@@ -6,12 +6,12 @@ namespace BilliotGames
     [Serializable]
     public class Stat
     {
-        public virtual Value Value => new Value(value, deltaValue:0);
+        public virtual Value<float> Value => new Value<float>(value, deltaValue:0);
 
         [SerializeField] protected string id;
         [SerializeField] protected float value;
 
-        public virtual event Action<Value> OnValueChanged;
+        public virtual event Action<Value<float>> OnValueChanged;
 
         public Stat(string id) {
             this.id = id;
@@ -23,7 +23,7 @@ namespace BilliotGames
 
         public virtual void ChangeValue(float delataValue) {
             value += delataValue;
-            OnValueChanged?.Invoke(new Value(value, delataValue));
+            OnValueChanged?.Invoke(new Value<float>(value, delataValue));
         }
     }
 }

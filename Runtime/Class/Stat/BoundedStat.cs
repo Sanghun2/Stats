@@ -3,16 +3,16 @@ using UnityEngine;
 
 namespace BilliotGames
 {
-    public class BoundedStat : Stat, IBoundedValue
+    public class BoundedStat : Stat, IBoundedValue<float>
     {
         public string ID => id;
 
         public float CurrentValue => value;
         public float MinValue => _minValue;
         public float MaxValue => _maxValue;
-        public override Value Value => new Value(CurrentValue, deltaValue:0, MinValue, MaxValue);
+        public override Value<float> Value => new Value<float>(CurrentValue, deltaValue:0, MinValue, MaxValue);
 
-        public override event Action<Value> OnValueChanged;
+        public override event Action<Value<float>> OnValueChanged;
 
         [SerializeField] protected float _maxValue;
         [SerializeField] protected float _minValue;
@@ -37,7 +37,7 @@ namespace BilliotGames
             float resultValue = Mathf.Clamp(value, _minValue, _maxValue);
             float appliedDelta = resultValue - prevValue;
             value = resultValue;
-            OnValueChanged?.Invoke(new Value(value, appliedDelta, _minValue, _maxValue));
+            OnValueChanged?.Invoke(new Value<float>(value, appliedDelta, _minValue, _maxValue));
         }
     }
 }
