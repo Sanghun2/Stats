@@ -17,8 +17,8 @@ namespace BilliotGames
             this.id = id;
         }
 
-        public Stat() {
-
+        public Stat(float value) {
+            this.value = value;
         }
 
         public virtual void ChangeValue(float delataValue) {
