@@ -7,7 +7,7 @@ namespace BilliotGames
     [Serializable]
     public class Stat
     {
-        public virtual Value<float> Value => new Value<float>(value, deltaValue:0);
+        public virtual Value<float> Value => new Value<float>(FinalValue, deltaValue:0);
         public virtual float FinalValue
         {
             get
