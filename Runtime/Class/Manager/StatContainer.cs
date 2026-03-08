@@ -20,11 +20,12 @@ public class StatContainer
             Debug.LogError($"<color=red>{id}는 이미 존재하는 ID여서 stat 추가 실패</color>");
         }
     }
-    public void Clear() {
+    public void ClearStats() {
         statDict.Clear();
     }
 
-    public Value<float>? GetStatValue(string statID) {
+
+    public Value<float>? GetStatRawValue(string statID) {
         if (TryGetStat(statID, out Stat stat)) {
             return stat.RawValue;
         }
@@ -32,7 +33,7 @@ public class StatContainer
         Debug.LogError($"<color=red>{statID} named stat is not exist.</color>");
         return null;
     }
-    public bool TryChangeStat(string statID, float deltaValue) {
+    public bool TryChangeRawStat(string statID, float deltaValue) {
         if (TryGetStat(statID, out Stat stat)) {
             stat.ChangeRawValue(deltaValue);
             return true;
@@ -41,6 +42,10 @@ public class StatContainer
         Debug.LogError($"<color=red>stat ({statID}) is not exist.</color>");
         return false;
     }
+    public bool TryGetStat(string statID, out Stat stat) {
+        return statDict.TryGetValue(statID, out stat);
+    }
+
 
     public void RegisterEvent(string statID, Action<Value<float>> @event) {
         if (TryGetStat(statID, out Stat stat)) {
@@ -55,10 +60,5 @@ public class StatContainer
         if (TryGetStat(statID, out Stat stat)) {
             stat.OnValueChanged -= @event;
         }
-    }
-
-
-    public bool TryGetStat(string statID, out Stat stat) {
-        return statDict.TryGetValue(statID, out stat);
     }
 }
