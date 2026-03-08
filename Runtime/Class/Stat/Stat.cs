@@ -35,7 +35,7 @@ namespace BilliotGames
             this.cachedFinalValue = baseValue;
         }
 
-        public virtual void ChangeValue(float delataValue) {
+        public virtual void ChangeRawValue(float delataValue) {
             value += delataValue;
             OnValueChanged?.Invoke(new Value<float>(value, delataValue));
         }

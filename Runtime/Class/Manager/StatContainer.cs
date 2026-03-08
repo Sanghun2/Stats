@@ -34,7 +34,7 @@ public class StatContainer
     }
     public bool TryChangeStat(string statID, float deltaValue) {
         if (TryGetStat(statID, out Stat stat)) {
-            stat.ChangeValue(deltaValue);
+            stat.ChangeRawValue(deltaValue);
             return true;
         }
 
