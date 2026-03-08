@@ -18,6 +18,12 @@ namespace BilliotGames
         private float modifierValue;
         private ModifierType modifierType;
 
+        public StatModifier(float modifyValue, ModifierType modifierType) {
+            modifierID = Guid.NewGuid().ToString();
+            this.modifierValue = modifyValue;
+            this.modifierType = modifierType;
+        }
+
         public float ApplyValue(float targetValue) {
             return ModifyValue(targetValue, modifierValue, modifierType);
         }
