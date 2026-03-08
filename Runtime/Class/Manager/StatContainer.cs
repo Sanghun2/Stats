@@ -26,7 +26,7 @@ public class StatContainer
 
     public Value<float>? GetStatValue(string statID) {
         if (TryGetStat(statID, out Stat stat)) {
-            return stat.Value;
+            return stat.RawValue;
         }
 
         Debug.LogError($"<color=red>{statID} named stat is not exist.</color>");
