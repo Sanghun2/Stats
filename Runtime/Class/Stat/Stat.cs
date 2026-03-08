@@ -7,28 +7,24 @@ namespace BilliotGames
     [Serializable]
     public class Stat
     {
-        public virtual Value<float> Value => new Value<float>(FinalValue, deltaValue:0);
+        public virtual Value<float> Value => new Value<float>(FinalValue, deltaValue: 0);
         public virtual float FinalValue
         {
             get
             {
-                if (modifierDirty) {
-                    cachedFinalValue = CalculateFinalValue(value);
-                    modifierDirty = false;
-                }
-
                 return cachedFinalValue;
             }
         }
+
 
         [SerializeField] protected string id;
         [SerializeField] protected float value;
 
         private List<StatModifier> modifierList = new();
-        private bool modifierDirty = true;
         private float cachedFinalValue;
 
         public virtual event Action<Value<float>> OnValueChanged;
+        public virtual event Action<Value<float>> OnModifierUpdated;
 
         public Stat(string id) {
             this.id = id;
@@ -36,6 +32,7 @@ namespace BilliotGames
 
         public Stat(float baseValue) {
             this.value = baseValue;
+            this.cachedFinalValue = baseValue;
         }
 
         public virtual void ChangeValue(float delataValue) {
@@ -47,19 +44,19 @@ namespace BilliotGames
 
         public void AddModifier(StatModifier modifier) {
             modifierList.Add(modifier);
-            modifierDirty = true;
+            UpdateFinalValue();
         }
         public void RemoveModifier(StatModifier targetModifier) {
             if (targetModifier == null) return;
 
-            for (int i = modifierList.Count-1; i >= 0 ; --i) {
+            for (int i = modifierList.Count - 1; i >= 0; --i) {
                 var modifier = modifierList[i];
                 if (modifier.Equals(targetModifier)) {
                     modifierList.RemoveAt(i);
                 }
             }
 
-            modifierDirty = true;
+            UpdateFinalValue();
         }
 
 
@@ -70,6 +67,11 @@ namespace BilliotGames
             }
 
             return value;
+        }
+        private void UpdateFinalValue() {
+            var prevValue = cachedFinalValue;
+            cachedFinalValue = CalculateFinalValue(value);
+            OnModifierUpdated?.Invoke(new Value<float>(cachedFinalValue, cachedFinalValue - prevValue));
         }
 
         #endregion
