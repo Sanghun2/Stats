@@ -20,6 +20,9 @@ public class StatContainer
             Debug.LogError($"<color=red>{id}는 이미 존재하는 ID여서 stat 추가 실패</color>");
         }
     }
+    public void Clear() {
+        statDict.Clear();
+    }
 
     public Value<float>? GetStatValue(string statID) {
         if (TryGetStat(statID, out Stat stat)) {
