@@ -7,6 +7,7 @@ namespace BilliotGames
     public class StatModifier : IEquatable<StatModifier>
     {
         public enum ModifierType {
+            None,
             PureAdd,
             PureMultiply,
             PercentAdd,
@@ -16,7 +17,7 @@ namespace BilliotGames
 
         private string modifierID;
         private float modifierValue;
-        private ModifierType modifierType;
+        private ModifierType modifierType = ModifierType.None;
 
         public StatModifier(float modifyValue, ModifierType modifierType) {
             modifierID = Guid.NewGuid().ToString();
