@@ -26,13 +26,17 @@ public class StatContainer
             return stat.Value;
         }
 
-        Debug.LogError($"<color=red>{statID} named stat not exist.</color>");
+        Debug.LogError($"<color=red>{statID} named stat is not exist.</color>");
         return null;
     }
-    public void ChangeStat(string statID, float deltaValue) {
+    public bool TryChangeStat(string statID, float deltaValue) {
         if (TryGetStat(statID, out Stat stat)) {
             stat.ChangeValue(deltaValue);
+            return true;
         }
+
+        Debug.LogError($"<color=red>stat ({statID}) is not exist.</color>");
+        return false;
     }
 
     public void RegisterEvent(string statID, Action<Value<float>> @event) {
@@ -51,7 +55,7 @@ public class StatContainer
     }
 
 
-    private bool TryGetStat(string statID, out Stat stat) {
+    public bool TryGetStat(string statID, out Stat stat) {
         return statDict.TryGetValue(statID, out stat);
     }
 }
