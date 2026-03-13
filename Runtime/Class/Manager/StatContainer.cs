@@ -47,10 +47,12 @@ namespace BilliotGames
         public bool TryGetStat(string statID, out Stat stat) {
             return statDict.TryGetValue(statID, out stat);
         }
-        public bool OverrideStat(string statID, Value<float> overrideValue) {
+        public void OverrideStat(string statID, Stat overrideStat) {
             if (statDict.TryGetValue(statID, out Stat stat)) {
-                stat.SetValue(Value);
+                stat.SetValue(overrideStat.RawValue);
             }
+
+            RegisterStat(statID, overrideStat);
         }
 
 
