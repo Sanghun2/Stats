@@ -37,7 +37,14 @@ namespace BilliotGames
             float resultValue = Mathf.Clamp(value, _minValue, _maxValue);
             float appliedDelta = resultValue - prevValue;
             value = resultValue;
-            OnValueChanged?.Invoke(new Value<float>(value, appliedDelta, _minValue, _maxValue));
+            OnValueChanged?.Invoke(new Value<float>(value, appliedDelta, MinValue, MaxValue));
+        }
+
+        public override void SetValue(Value<float> valueData) {
+            base.SetValue(valueData);
+            _maxValue = valueData.MaxValue;
+            _minValue = valueData.MinValue;
+            OnValueChanged?.Invoke(valueData);
         }
     }
 }

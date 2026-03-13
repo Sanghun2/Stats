@@ -39,6 +39,10 @@ namespace BilliotGames
             value += delataValue;
             OnValueChanged?.Invoke(new Value<float>(value, delataValue));
         }
+        public virtual void SetValue(Value<float> valueData) {
+            value = valueData.CurrentValue;
+            OnValueChanged?.Invoke(valueData);
+        }
 
         #region Modifiers
 
