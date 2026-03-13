@@ -48,11 +48,16 @@ namespace BilliotGames
             return statDict.TryGetValue(statID, out stat);
         }
         public void OverrideStat(string statID, Stat overrideStat) {
-            if (statDict.TryGetValue(statID, out Stat stat)) {
-                stat.SetValue(overrideStat.RawValue);
+            statDict[statID] = overrideStat;
+        }
+        public bool TryOverrideStatValue(string statID, Value<float> overrideValue) {
+            if (statDict.TryGetValue(statID, out Stat targetStat)) {
+                targetStat.SetValue(overrideValue);
+                return true;
             }
 
-            RegisterStat(statID, overrideStat);
+            Debug.LogError($"<color=red>failed to override stat value. no ({statID}) is exist. reigster first</color>");
+            return false;
         }
 
 
