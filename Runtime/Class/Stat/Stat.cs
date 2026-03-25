@@ -5,7 +5,7 @@ using UnityEngine;
 namespace BilliotGames
 {
     [Serializable]
-    public class Stat
+    public class Stat : IStat
     {
         public string ID => id;
 

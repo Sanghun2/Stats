@@ -3,15 +3,23 @@ using UnityEngine;
 
 namespace BilliotGames
 {
-    public class StatGroup
+    public class StatGroup : IStatGroup
     {
         public string ID => id;
+
+        public Value<float> RawValue => currentValueStat.RawValue;
+        public float ModifiedValue => currentValueStat.ModifiedValue;
+        public Value<float> RawMaxValue => maxValueStat.RawValue;
+        public float ModifiedMaxValue => maxValueStat.ModifiedValue;
 
         private string id;
         private Stat currentValueStat;
         private Stat maxValueStat;
 
-        public StatGroup(string id, Stat currentValueStat, Stat maxValueStat) {
+        public event Action<Value<float>> OnValueChanged;
+        public event Action<Value<float>> OnModifierUpdated;
+
+        public StatGroup(string id, BoundedStat currentValueStat, Stat maxValueStat) {
             this.id = id;
             this.currentValueStat = currentValueStat;
             this.maxValueStat = maxValueStat;
