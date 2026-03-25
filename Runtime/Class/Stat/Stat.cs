@@ -14,7 +14,7 @@ namespace BilliotGames
         {
             get
             {
-                return new Value<float>(cachedFinalValue, 0);
+                return new Value<float>(modifiedValue, 0);
             }
         }
 
@@ -23,7 +23,7 @@ namespace BilliotGames
         [SerializeField] protected float rawValue;
 
         private List<StatModifier> modifierList = new();
-        protected float cachedFinalValue;
+        protected float modifiedValue;
 
         public virtual event Action<Value<float>> OnValueChanged;
         public virtual event Action<Value<float>> OnModifierUpdated;
@@ -34,7 +34,7 @@ namespace BilliotGames
 
         public Stat(string id, float baseValue) :this(id) {
             this.rawValue = baseValue;
-            this.cachedFinalValue = baseValue;
+            this.modifiedValue = baseValue;
         }
 
         public virtual void ChangeRawValue(float delataValue) {
@@ -75,9 +75,9 @@ namespace BilliotGames
             return value;
         }
         private void UpdateFinalValue() {
-            var prevValue = cachedFinalValue;
-            cachedFinalValue = CalculateFinalValue(rawValue);
-            OnModifierUpdated?.Invoke(new Value<float>(cachedFinalValue, cachedFinalValue - prevValue));
+            var prevValue = modifiedValue;
+            modifiedValue = CalculateFinalValue(rawValue);
+            OnModifierUpdated?.Invoke(new Value<float>(modifiedValue, modifiedValue - prevValue));
         }
 
         #endregion

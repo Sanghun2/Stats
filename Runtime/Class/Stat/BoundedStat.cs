@@ -5,11 +5,11 @@ namespace BilliotGames
 {
     public class BoundedStat : Stat, IBoundedValue<float>
     {
-        public float CurrentValue => cachedFinalValue;
+        public float CurrentValue => modifiedValue;
         public float MinValue => _minValue;
         public float MaxValue => _maxValue;
         public override Value<float> RawValue => new Value<float>(CurrentValue, deltaValue:0, MinValue, MaxValue);
-        public override Value<float> ModifiedValue => new Value<float>(cachedFinalValue, deltaValue:0, MinValue, MaxValue);
+        public override Value<float> ModifiedValue => new Value<float>(modifiedValue, deltaValue:0, MinValue, MaxValue);
 
         public override event Action<Value<float>> OnValueChanged;
 
@@ -23,7 +23,7 @@ namespace BilliotGames
         public BoundedStat(string id, float maxValue) : base(id) {
             this.rawValue = maxValue;
             this._maxValue = maxValue;
-            this.cachedFinalValue = maxValue;
+            this.modifiedValue = maxValue;
         }
 
         public BoundedStat(string id, float minValue, float maxValue) : base(id, maxValue) {
