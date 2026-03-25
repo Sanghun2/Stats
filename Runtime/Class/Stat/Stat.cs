@@ -14,7 +14,7 @@ namespace BilliotGames
         {
             get
             {
-                return new Value<float>(modifiedValue, 0);
+                return new Value<float>(CalculateFinalValue(rawValue), 0);
             }
         }
 
@@ -66,12 +66,13 @@ namespace BilliotGames
         }
 
 
-        private float CalculateFinalValue(float value) {
+        protected float CalculateFinalValue(float value) {
             for (int i = 0; i < modifierList.Count; ++i) {
                 var modifier = modifierList[i];
                 value = modifier.ApplyValue(value);
             }
 
+            modifiedValue = value;
             return value;
         }
         private void UpdateFinalValue() {

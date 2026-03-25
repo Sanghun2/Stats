@@ -9,7 +9,7 @@ namespace BilliotGames
         public float MinValue => _minValue;
         public float MaxValue => _maxValue;
         public override Value<float> RawValue => new Value<float>(CurrentValue, deltaValue:0, MinValue, MaxValue);
-        public override Value<float> ModifiedValue => new Value<float>(modifiedValue, deltaValue:0, MinValue, MaxValue);
+        public override Value<float> ModifiedValue => new Value<float>(CalculateFinalValue(rawValue), deltaValue:0, MinValue, MaxValue);
 
         public override event Action<Value<float>> OnValueChanged;
 
@@ -45,7 +45,7 @@ namespace BilliotGames
             base.SetValue(valueData);
             _maxValue = valueData.MaxValue;
             _minValue = valueData.MinValue;
-            OnValueChanged?.Invoke(valueData);
+            OnValueChanged?.Invoke(ModifiedValue);
         }
 
         internal void SetMaxValue(float maxValue) {
