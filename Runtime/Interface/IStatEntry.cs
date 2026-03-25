@@ -6,7 +6,7 @@ namespace BilliotGames
     {
         string ID { get; }
         Value<float> RawValue { get; }
-        float ModifiedValue { get; }
+        Value<float> ModifiedValue { get; }
         event Action<Value<float>> OnModifierUpdated; 
         void ChangeRawValue(float deltaValue);
         void SetValue(Value<float> overrideValue);

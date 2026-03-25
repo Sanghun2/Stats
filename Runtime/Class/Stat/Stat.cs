@@ -9,21 +9,21 @@ namespace BilliotGames
     {
         public string ID => id;
 
-        public virtual Value<float> RawValue => new Value<float>(value, deltaValue: 0);
-        public virtual float ModifiedValue
+        public virtual Value<float> RawValue => new Value<float>(rawValue, deltaValue: 0);
+        public virtual Value<float> ModifiedValue
         {
             get
             {
-                return cachedFinalValue;
+                return new Value<float>(cachedFinalValue, 0);
             }
         }
 
 
         [SerializeField] protected string id;
-        [SerializeField] protected float value;
+        [SerializeField] protected float rawValue;
 
         private List<StatModifier> modifierList = new();
-        private float cachedFinalValue;
+        protected float cachedFinalValue;
 
         public virtual event Action<Value<float>> OnValueChanged;
         public virtual event Action<Value<float>> OnModifierUpdated;
@@ -33,16 +33,16 @@ namespace BilliotGames
         }
 
         public Stat(string id, float baseValue) :this(id) {
-            this.value = baseValue;
+            this.rawValue = baseValue;
             this.cachedFinalValue = baseValue;
         }
 
         public virtual void ChangeRawValue(float delataValue) {
-            value += delataValue;
-            OnValueChanged?.Invoke(new Value<float>(value, delataValue));
+            rawValue += delataValue;
+            OnValueChanged?.Invoke(new Value<float>(rawValue, delataValue));
         }
         public virtual void SetValue(Value<float> valueData) {
-            value = valueData.CurrentValue;
+            rawValue = valueData.CurrentValue;
             OnValueChanged?.Invoke(valueData);
         }
 
@@ -76,7 +76,7 @@ namespace BilliotGames
         }
         private void UpdateFinalValue() {
             var prevValue = cachedFinalValue;
-            cachedFinalValue = CalculateFinalValue(value);
+            cachedFinalValue = CalculateFinalValue(rawValue);
             OnModifierUpdated?.Invoke(new Value<float>(cachedFinalValue, cachedFinalValue - prevValue));
         }
 

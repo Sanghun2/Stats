@@ -12,13 +12,13 @@ namespace BilliotGames
         public string ID => groupID;
 
         public Value<float> RawValue => currentValueStat.RawValue;
-        public float ModifiedValue => currentValueStat.ModifiedValue;
+        public Value<float> ModifiedValue => currentValueStat.ModifiedValue;
         public Value<float> RawMaxValue => maxValueStat.RawValue;
-        public float ModifiedMaxValue => maxValueStat.ModifiedValue;
+        public Value<float> ModifiedMaxValue => maxValueStat.ModifiedValue;
 
 
         private string groupID;
-        private Stat currentValueStat;
+        private BoundedStat currentValueStat;
         private Stat maxValueStat;
 
         public event Action<Value<float>> OnModifierUpdated;
@@ -28,7 +28,7 @@ namespace BilliotGames
             this.currentValueStat = currentValueStat;
             this.maxValueStat = maxValueStat;
 
-            currentValueStat.SetValue(new Value<float>(ModifiedMaxValue, 0, 0, ModifiedMaxValue));
+            currentValueStat.SetValue(ModifiedMaxValue);
         }
 
 
@@ -53,6 +53,12 @@ namespace BilliotGames
         }
         public void ChangeMaxValue(float deltaValue) {
             maxValueStat.ChangeRawValue(deltaValue);
+
+            var maxValue = maxValueStat.ModifiedValue.CurrentValue;
+            var prevValue = currentValueStat.ModifiedValue.CurrentValue;
+            var currentValue = Mathf.Min(currentValueStat.ModifiedValue.CurrentValue, maxValue);
+            currentValueStat.SetMaxValue(maxValue);
+            currentValueStat.SetValue(new Value<float>(currentValue, deltaValue:currentValue - prevValue));
         }
 
         public bool TryGetStat(string subID, out Stat stat) {
