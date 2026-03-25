@@ -5,10 +5,14 @@ namespace BilliotGames
 {
     public class StatGroup
     {
+        public string ID => id;
+
+        private string id;
         private Stat currentValueStat;
         private Stat maxValueStat;
 
-        public StatGroup(Stat currentValueStat, Stat maxValueStat) {
+        public StatGroup(string id, Stat currentValueStat, Stat maxValueStat) {
+            this.id = id;
             this.currentValueStat = currentValueStat;
             this.maxValueStat = maxValueStat;
 
