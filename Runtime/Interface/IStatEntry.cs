@@ -22,7 +22,7 @@ namespace BilliotGames
     public interface IStatGroup : IStatEntry
     {
         void ChangeCurrentValue(float deltaValue);
-        void ChangeMaxValue(float deltaValue);
+        void ChangeRawMaxValue(float deltaValue);
         void SetCurrentValue(Value<float> value);
         void SetMaxValue(Value<float> value);
 

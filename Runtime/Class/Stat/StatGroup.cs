@@ -52,14 +52,13 @@ namespace BilliotGames
         public void ChangeCurrentValue(float deltaValue) {
             currentValueStat.ChangeRawValue(deltaValue);
         }
-        public void ChangeMaxValue(float deltaValue) {
+        public void ChangeRawMaxValue(float deltaValue) {
             maxValueStat.ChangeRawValue(deltaValue);
 
             var maxValue = maxValueStat.ModifiedValue.CurrentValue;
-            var prevValue = currentValueStat.ModifiedValue.CurrentValue;
-            var currentValue = Mathf.Min(currentValueStat.ModifiedValue.CurrentValue, maxValue);
-            currentValueStat.SetMaxValue(maxValue);
-            currentValueStat.SetValue(new Value<float>(currentValue, deltaValue:currentValue - prevValue));
+            var currentValue = currentValueStat.ModifiedValue.CurrentValue;
+            var resultValue = Mathf.Min(currentValue, maxValue);
+            currentValueStat.SetValue(new Value<float>(resultValue, deltaValue:resultValue - currentValue, 0, maxValue));
         }
 
         public bool TryGetStat(string subID, out Stat stat) {

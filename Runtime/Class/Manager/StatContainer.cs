@@ -78,7 +78,7 @@ namespace BilliotGames
         }
         public bool TryChangeRawMaxVale(string statID, float deltaValue) {
             if (TryGetStat(statID, out IStatEntry stat) && stat is StatGroup group) {
-                group.ChangeMaxValue(deltaValue);
+                group.ChangeRawMaxValue(deltaValue);
                 return true;
             }
 
