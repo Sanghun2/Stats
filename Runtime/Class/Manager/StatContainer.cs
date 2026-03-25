@@ -88,10 +88,6 @@ namespace BilliotGames
 
         #endregion
 
-
-
-
-
         public void RegisterEvent(Action<Value<float>> @event, string statID, string subID = null) {
             if (TryGetStat(statID, out IStatEntry entry)) {
                 if (string.IsNullOrEmpty(subID) && entry is Stat stat) {
@@ -100,6 +96,7 @@ namespace BilliotGames
                 }
                 else if (entry is StatGroup group) {
                     RegisterEvent(@event, group, subID);
+                    return;
                 }
             }
 
@@ -109,7 +106,6 @@ namespace BilliotGames
             if (TryGetStat(statID, out IStatEntry entry)) {
                 if (string.IsNullOrEmpty(subID) && entry is Stat stat) {
                     UnregisterEvent(@event, stat);
-                    return;
                 }
                 else if (entry is StatGroup group) {
                     UnregisterEvent(@event, group, subID);
