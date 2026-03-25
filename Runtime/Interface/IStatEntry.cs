@@ -7,14 +7,14 @@ namespace BilliotGames
         string ID { get; }
         Value<float> RawValue { get; }
         float ModifiedValue { get; }
-        event Action<Value<float>> OnValueChanged;
-        event Action<Value<float>> OnModifierUpdated;
+        event Action<Value<float>> OnModifierUpdated; 
+        void ChangeRawValue(float deltaValue);
+        void SetValue(Value<float> overrideValue);
     }
 
     public interface IStat : IStatEntry
     {
-        void ChangeRawValue(float deltaValue);
-        void SetValue(Value<float> valueData);
+        event Action<Value<float>> OnValueChanged;
         void AddModifier(StatModifier modifier);
         void RemoveModifier(StatModifier modifier);
     }
@@ -23,8 +23,9 @@ namespace BilliotGames
     {
         void ChangeCurrentValue(float deltaValue);
         void ChangeMaxValue(float deltaValue);
-        void SetCurrentValue(float value);
-        void SetMaxValue(float value);
+        void SetCurrentValue(Value<float> value);
+        void SetMaxValue(Value<float> value);
+
         event Action<Value<float>> OnCurrentValueChanged;
         event Action<Value<float>> OnMaxValueChanged;
     }
