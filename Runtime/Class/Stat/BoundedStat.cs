@@ -5,7 +5,7 @@ namespace BilliotGames
 {
     public class BoundedStat : Stat, IBoundedValue<float>
     {
-        public float CurrentValue => modifiedValue;
+        public float CurrentValue => CalculateFinalValue(rawValue);
         public float MinValue => _minValue;
         public float MaxValue => _maxValue;
         public override Value<float> RawValue => new Value<float>(CurrentValue, deltaValue:0, MinValue, MaxValue);
