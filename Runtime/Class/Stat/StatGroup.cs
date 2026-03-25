@@ -28,7 +28,8 @@ namespace BilliotGames
             this.currentValueStat = currentValueStat;
             this.maxValueStat = maxValueStat;
 
-            currentValueStat.SetValue(ModifiedMaxValue);
+            var maxValue = maxValueStat.ModifiedValue.CurrentValue;
+            currentValueStat.SetValue(new Value<float>(maxValue, 0, 0, maxValue));
         }
 
 
