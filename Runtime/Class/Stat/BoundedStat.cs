@@ -5,8 +5,6 @@ namespace BilliotGames
 {
     public class BoundedStat : Stat, IBoundedValue<float>
     {
-        public string ID => id;
-
         public float CurrentValue => value;
         public float MinValue => _minValue;
         public float MaxValue => _maxValue;
@@ -26,9 +24,10 @@ namespace BilliotGames
             this._maxValue = maxValue;            
         }
 
-        public BoundedStat(float maxValue) : base(maxValue) {
+        public BoundedStat(string id, float minValue, float maxValue) : base(id, maxValue) {
             this.value = maxValue;
             this._maxValue = maxValue;
+            this._minValue = minValue;
         }
 
         public override void ChangeRawValue(float deltaValue) {

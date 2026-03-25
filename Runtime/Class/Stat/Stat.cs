@@ -7,6 +7,8 @@ namespace BilliotGames
     [Serializable]
     public class Stat
     {
+        public string ID => id;
+
         public virtual Value<float> RawValue => new Value<float>(value, deltaValue: 0);
         public virtual float ModifiedValue
         {
@@ -30,7 +32,7 @@ namespace BilliotGames
             this.id = id;
         }
 
-        public Stat(float baseValue) {
+        public Stat(string id, float baseValue) :this(id) {
             this.value = baseValue;
             this.cachedFinalValue = baseValue;
         }
