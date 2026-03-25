@@ -90,7 +90,7 @@ namespace BilliotGames
 
         public void RegisterEvent(Action<Value<float>> @event, string statID, string subID = null) {
             if (TryGetStat(statID, out IStatEntry entry)) {
-                if (string.IsNullOrEmpty(subID) && entry is Stat stat) {
+                if ((string.IsNullOrEmpty(subID) || subID.Equals(StatGroup.CURRENT_VALUE)) && entry is Stat stat) {
                     RegisterEvent(@event, stat);
                     return;
                 }
@@ -104,7 +104,7 @@ namespace BilliotGames
         }
         public void UnregisterEvent(Action<Value<float>> @event, string statID, string subID = null) {
             if (TryGetStat(statID, out IStatEntry entry)) {
-                if (string.IsNullOrEmpty(subID) && entry is Stat stat) {
+                if ((string.IsNullOrEmpty(subID) || subID.Equals(StatGroup.CURRENT_VALUE)) && entry is Stat stat) {
                     UnregisterEvent(@event, stat);
                 }
                 else if (entry is StatGroup group) {
