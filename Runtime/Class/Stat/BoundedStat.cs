@@ -22,7 +22,8 @@ namespace BilliotGames
 
         public BoundedStat(string id, float maxValue) : base(id) {
             this.rawValue = maxValue;
-            this._maxValue = maxValue;            
+            this._maxValue = maxValue;
+            this.cachedFinalValue = maxValue;
         }
 
         public BoundedStat(string id, float minValue, float maxValue) : base(id, maxValue) {
